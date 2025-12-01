@@ -56,6 +56,30 @@ pub fn run() {
                     }
                 });
             }
+
+            // Close the entire app when main window is closed
+            if let Some(main_window) = app.get_webview_window("main") {
+                let app_handle = app.handle().clone();
+                main_window.on_window_event(move |event| {
+                    if let tauri::WindowEvent::CloseRequested { api, .. } = event {
+                        // Prevent default close to handle it manually
+                        api.prevent_close();
+                        
+                        // Close all windows first, then exit
+                        let handle = app_handle.clone();
+                        std::thread::spawn(move || {
+                            // Close all webview windows
+                            for (_, window) in handle.webview_windows() {
+                                let _ = window.close();
+                            }
+                            // Small delay to let windows clean up properly
+                            std::thread::sleep(std::time::Duration::from_millis(100));
+                            handle.exit(0);
+                        });
+                    }
+                });
+            }
+
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![greet, open_settings_window])

@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "opalchat",
+        "title": "OpalChat",
         "label": "main",
         "width": 800,
         "height": 600

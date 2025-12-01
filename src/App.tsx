@@ -19,7 +19,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+import { ChevronDownIcon, ChevronUpIcon, Settings2Icon } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea"
 
 
 function App() {
@@ -33,17 +34,17 @@ function App() {
 
   return (
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-      <main className="mx-auto p-10 flex flex-col items-center justify-center min-h-screen">
-        <div id="theme-toggle" className="absolute top-4 right-4">
-          <ModeToggle />
-        </div>
-        <div id="menu" className="absolute top-4 left-4 w-25">
+      <main className="p-4 flex flex-row min-h-screen">
+        <div id="menu" className="min-w-30 max-w-1/6 mr-2">
           <Collapsible open={isOpen} onOpenChange={setIsOpen}>
             <ButtonGroup orientation="vertical" className="w-full">
               <ButtonGroupText className="flex items-center justify-center py-1">Menu</ButtonGroupText>
               <CollapsibleContent asChild>
                 <div className="grid grid-rows-[1fr] transition-[grid-template-rows] duration-200 data-[state=closed]:grid-rows-[0fr]">
                   <div className="overflow-hidden flex flex-col">
+                    <Button variant="outline" className="rounded-none border-t-0">Explore</Button>
+                    <Button variant="outline" className="rounded-none border-t-0">Favourites</Button>
+                    <Button variant="outline" className="rounded-none border-t-0">Create</Button>
                     <Button onClick={() => openSettings()} variant="outline" className="rounded-none border-t-0">Settings</Button>
                     <Button variant="outline" className="rounded-none border-t-0">Profile</Button>
                   </div>
@@ -57,20 +58,27 @@ function App() {
             </ButtonGroup>
           </Collapsible>
         </div>
-        <h1 className="text-3xl font-bold mb-4">Welcome to OpalChat!</h1>
-
-        <div className="row logos space-x-4">
-          <a href="" target="_blank">
-            <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-          </a>
-          <a href="" target="_blank">
-            <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-          </a>
-          <a href="" target="_blank">
-            <img src={reactLogo} className="logo react" alt="React logo" />
-          </a>
+        <div id="content" className="flex flex-col border ml-2 mr-2 px-4 py-4 min-w-1/2 w-full rounded-lg shadow-lg bg-background text-foreground">
+          <div className="flex flex-row justify-between">
+            <h1 className="text-3xl font-bold">Welcome to OpalChat!</h1>
+            <div className="flex justify-end mb-4">
+              <Button className="px-4 py-2 bg-accent-foreground/80 hover:bg-accent-foreground">
+                <Settings2Icon className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+          <div className="flex-1" />
+          <div id="chat-area" className="flex flex-row w-full gap-2 mt-4 items-end">
+            <Textarea placeholder="Type your message here..." className="flex-1" />
+            <Button id="send-message" className="px-4 py-2 bg-accent-foreground/80 hover:bg-accent-foreground">
+              <span>Send</span>
+              <ChevronUpIcon className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
-        <p className="mb-4 text-lg font-medium">Click on the Tauri, Vite, and React logos to learn more.</p>
+        <div id="theme-toggle" className="ml-2 top-4 right-4">
+          <ModeToggle />
+        </div>
       </main>
     </ThemeProvider>
   );

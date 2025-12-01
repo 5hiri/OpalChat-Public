@@ -25,6 +25,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  /* Gradient background controls - adjust these to change brightness */
+  /* Light mode: 0.80 - 0.97 (higher = lighter) */
+  --bg-lightness: 0.80;
+  /* Color intensity: 0.05 - 0.15 (higher = more vibrant) */
+  --bg-chroma: 0.10;
   
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -62,6 +68,11 @@
 }
 
 .dark {
+  /* Dark mode: 0.15 - 0.40 (higher = lighter) */
+  --bg-lightness: 0.10;
+  /* Color intensity: 0.05 - 0.15 (higher = more vibrant) */
+  --bg-chroma: 0.08;
+
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.145 0 0);
@@ -157,6 +168,31 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background: 
+      radial-gradient(ellipse at 20% 80%, oklch(calc(var(--bg-lightness) - 0.05) var(--bg-chroma) 300) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, oklch(calc(var(--bg-lightness) - 0.02) calc(var(--bg-chroma) - 0.02) 200) 0%, transparent 50%),
+      radial-gradient(ellipse at 40% 40%, oklch(var(--bg-lightness) calc(var(--bg-chroma) - 0.02) 270) 0%, transparent 45%),
+      radial-gradient(ellipse at 70% 70%, oklch(calc(var(--bg-lightness) - 0.03) var(--bg-chroma) 150) 0%, transparent 50%),
+      radial-gradient(ellipse at 10% 30%, oklch(calc(var(--bg-lightness) + 0.02) calc(var(--bg-chroma) - 0.02) 50) 0%, transparent 40%),
+      linear-gradient(135deg, oklch(calc(var(--bg-lightness) + 0.05) calc(var(--bg-chroma) - 0.05) 280) 0%, oklch(calc(var(--bg-lightness) + 0.07) calc(var(--bg-chroma) - 0.07) 220) 100%);
+    background-size: 200% 200%, 200% 200%, 150% 150%, 180% 180%, 160% 160%, 100% 100%;
+    animation: blob-shimmer 20s ease-in-out infinite;
+    min-height: 100vh;
+  }
+}
+
+@keyframes blob-shimmer {
+  0%, 100% {
+    background-position: 0% 50%, 100% 50%, 50% 0%, 50% 100%, 80% 20%, 0% 0%;
+  }
+  25% {
+    background-position: 50% 0%, 50% 100%, 100% 50%, 0% 50%, 20% 80%, 0% 0%;
+  }
+  50% {
+    background-position: 100% 50%, 0% 50%, 50% 100%, 50% 0%, 60% 40%, 0% 0%;
+  }
+  75% {
+    background-position: 50% 100%, 50% 0%, 0% 50%, 100% 50%, 40% 60%, 0% 0%;
   }
 }
