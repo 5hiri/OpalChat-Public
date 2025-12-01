@@ -13,8 +13,18 @@
     "windows": [
       {
         "title": "opalchat",
+        "label": "main",
         "width": 800,
         "height": 600
+      },
+      {
+        "title": "Settings",
+        "label": "settings",
+        "url": "/#/settings",
+        "width": 600,
+        "height": 400,
+        "visible": false,
+        "center": true
       }
     ],
     "security": {
