@@ -1,7 +1,4 @@
-import React from "react";
 import { useState } from "react";
-import ReactDOM from "react-dom/client";
-import reactLogo from "@/assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
 // import "@/styles/App.css";
 import "@/styles/globals.css";
@@ -11,7 +8,6 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "./components/ui/button";
 import {
   ButtonGroup,
-  ButtonGroupSeparator,
   ButtonGroupText,
 } from "@/components/ui/button-group";
 import {
@@ -19,12 +15,11 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { ChevronDownIcon, ChevronUpIcon, Settings2Icon } from "lucide-react";
+import { ChevronDownIcon, ChevronUpIcon, Settings2Icon, SendIcon } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea"
 
 
 function App() {
-  const [name, setName] = useState("");
   const [isOpen, setIsOpen] = useState(true);
 
   async function openSettings() {
@@ -34,8 +29,8 @@ function App() {
 
   return (
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-      <main className="p-4 flex flex-row min-h-screen">
-        <div id="menu" className="min-w-30 max-w-1/6 mr-2">
+      <main className="min-h-screen p-4 flex gap-4">
+        <div id="menu" className="w-56 shrink-0">
           <Collapsible open={isOpen} onOpenChange={setIsOpen}>
             <ButtonGroup orientation="vertical" className="w-full">
               <ButtonGroupText className="flex items-center justify-center py-1">Menu</ButtonGroupText>
@@ -58,26 +53,27 @@ function App() {
             </ButtonGroup>
           </Collapsible>
         </div>
-        <div id="content" className="flex flex-col border ml-2 mr-2 px-4 py-4 min-w-1/2 w-full rounded-lg shadow-lg bg-background text-foreground">
-          <div className="flex flex-row justify-between">
-            <h1 className="text-3xl font-bold">Welcome to OpalChat!</h1>
-            <div className="flex justify-end mb-4">
-              <Button className="px-4 py-2 bg-accent-foreground/80 hover:bg-accent-foreground">
-                <Settings2Icon className="w-4 h-4" />
+        <div id="content" className="min-w-0 flex-1 flex flex-col rounded-xl border bg-background p-4 text-foreground shadow-sm">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <h1 className="text-3xl font-bold">Welcome to OpalChat!</h1>
+              <p className="text-sm text-muted-foreground">Start a conversation below.</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <ModeToggle />
+              <Button variant="outline" size="icon" onClick={() => openSettings()} aria-label="Open settings">
+                <Settings2Icon className="size-4" />
               </Button>
             </div>
           </div>
           <div className="flex-1" />
-          <div id="chat-area" className="flex flex-row w-full gap-2 mt-4 items-end">
+          <div id="chat-area" className="mt-4 flex w-full items-end gap-2">
             <Textarea placeholder="Type your message here..." className="flex-1" />
-            <Button id="send-message" className="px-4 py-2 bg-accent-foreground/80 hover:bg-accent-foreground">
+            <Button id="send-message" className="gap-2">
               <span>Send</span>
-              <ChevronUpIcon className="w-4 h-4" />
+              <SendIcon className="size-4" />
             </Button>
           </div>
-        </div>
-        <div id="theme-toggle" className="ml-2 top-4 right-4">
-          <ModeToggle />
         </div>
       </main>
     </ThemeProvider>

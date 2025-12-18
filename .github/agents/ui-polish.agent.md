@@ -1,6 +1,5 @@
 ---
 description: "Front-end UI polish agent for OpalChat (Vite/React + shadcn/ui + Tailwind). Use for visual refinement, layout/spacing, and interaction tweaks without changing app behavior."
-tools: []
 ---
 
 ## Purpose & Usage
