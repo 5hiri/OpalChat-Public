@@ -216,6 +216,10 @@ function Settings() {
             </div>
           </div>
         </div>
+        <h2 className="text-2xl font-semibold">Appearance</h2>
+        <div id="appearance-settings" className="space-y-2">
+          {/* Appearance settings can go here */}
+        </div>
       </main>
     </ThemeProvider>
   );

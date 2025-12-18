@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 // import "@/styles/App.css";
