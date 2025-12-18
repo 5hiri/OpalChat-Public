@@ -1,5 +1,4 @@
 import "@/styles/globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
 import { useState } from "react";
 
@@ -78,9 +77,8 @@ function Settings() {
   // function to access json settings file to populate and save settings - to be implemented
   
   return (
-    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-      <main className="h-screen min-h-0 p-4">
-        <div className="mx-auto flex h-full min-h-0 w-full max-w-4xl flex-col gap-4">
+    <main className="h-screen min-h-0 p-4">
+      <div className="mx-auto flex h-full min-h-0 w-full max-w-4xl flex-col gap-4">
           <div className="flex items-start justify-between gap-3">
             <div>
               <h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
@@ -244,13 +242,8 @@ function Settings() {
               </section>
             </div>
           </div>
-        </div>
-        <h2 className="text-2xl font-semibold">Appearance</h2>
-        <div id="appearance-settings" className="space-y-2">
-          {/* Appearance settings can go here */}
-        </div>
-      </main>
-    </ThemeProvider>
+      </div>
+    </main>
   );
 }
 

@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 // import "@/styles/App.css";
 import "@/styles/globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
 
 import { Button } from "./components/ui/button";
@@ -103,8 +102,7 @@ function App() {
   }
 
   return (
-    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-      <main className="h-screen min-h-0 p-4 flex gap-4 mx-auto w-full max-w-6xl">
+    <main className="h-screen min-h-0 p-4 flex gap-4 mx-auto w-full max-w-6xl">
         <div id="menu" className="w-56 shrink-0">
           <Collapsible open={isOpen} onOpenChange={setIsOpen}>
             <div className="rounded-xl border bg-background p-2 text-foreground shadow-sm">
@@ -264,7 +262,6 @@ function App() {
           </div>
         </div>
       </main>
-    </ThemeProvider>
   );
 }
 
