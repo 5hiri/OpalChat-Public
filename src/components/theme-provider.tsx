@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Theme, ThemeProviderContext } from "@/components/theme-context"
+import { applyBackgroundSettingsToRoot } from "@/lib/background-settings"
 
 type ThemeProviderProps = {
   children: React.ReactNode
@@ -20,6 +21,9 @@ export function ThemeProvider({
   useEffect(() => {
     const root = window.document.documentElement
 
+    // Apply per-theme background overrides (if any)
+    applyBackgroundSettingsToRoot(root)
+
     root.classList.remove("light", "dark")
 
     if (theme === "system") {
@@ -34,6 +38,29 @@ export function ThemeProvider({
 
     root.classList.add(theme)
   }, [theme])
+
+  // Cleanup background listener on unmount
+  useEffect(() => {
+    let unlisten: undefined | (() => void)
+    ;(async () => {
+      try {
+        const { listen } = await import("@tauri-apps/api/event")
+        unlisten = await listen("opalchat:bg:changed", () => {
+          applyBackgroundSettingsToRoot(window.document.documentElement)
+        })
+      } catch {
+        // Ignore outside Tauri.
+      }
+    })()
+
+    return () => {
+      try {
+        unlisten?.()
+      } catch {
+        // ignore
+      }
+    }
+  }, [])
 
   const value = {
     theme,
